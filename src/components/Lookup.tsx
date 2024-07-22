@@ -10,18 +10,21 @@ const Lookup: React.FC = () => {
 		address: string;
 		inscriptionId: string;
 	} | null>(null);
+	const [limit] = useState(5);
+	const [offset, setOffset] = useState(0);
+	const [total, setTotal] = useState(0);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value);
 	};
 
-	const handleLookup = async () => {
+	const handleLookup = async (newOffset = 0) => {
 		setLoading(true);
 		setError('');
 		setResults([]);
 		try {
 			const response = await fetch(
-				`/api/ordinal-lookup?address=${inputValue}`
+				`/api/ordinal-lookup?address=${inputValue}&limit=${limit}&offset=${newOffset}`
 			);
 			if (!response.ok) {
 				throw new Error('Failed to fetch data');
@@ -34,6 +37,8 @@ const Lookup: React.FC = () => {
 			}
 
 			setResults(data.results);
+			setTotal(data.total);
+			setOffset(newOffset);
 		} catch (err) {
 			setError(
 				'Failed to fetch data. Please check the address and try again.'
@@ -51,6 +56,12 @@ const Lookup: React.FC = () => {
 		setSelectedInscription(null);
 	};
 
+	const handlePageClick = (newOffset: number) => {
+		handleLookup(newOffset);
+	};
+
+	const currentPage = Math.floor(offset / limit) + 1;
+
 	return (
 		<div className="bg-black text-white min-h-screen flex flex-col items-center justify-center">
 			<div className="text-2xl mb-6">Ordinal Inscription Lookup</div>
@@ -64,7 +75,7 @@ const Lookup: React.FC = () => {
 					/>
 				</div>
 				<button
-					onClick={handleLookup}
+					onClick={() => handleLookup(0)}
 					className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
 					disabled={loading}
 				>
@@ -92,6 +103,25 @@ const Lookup: React.FC = () => {
 								</div>
 							))
 						)}
+					</div>
+					<div className="flex justify-between mt-4">
+						<button
+							onClick={() => handlePageClick(offset - limit)}
+							disabled={offset === 0}
+							className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
+						>
+							Previous
+						</button>
+						<div className="mt-2 text-center">
+							Page {currentPage}
+						</div>
+						<button
+							onClick={() => handlePageClick(offset + limit)}
+							disabled={offset + limit >= total}
+							className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
+						>
+							Next
+						</button>
 					</div>
 				</div>
 			)}

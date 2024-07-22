@@ -4,7 +4,7 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { address } = req.query;
+	const { address, limit = '5', offset = '0' } = req.query;
 
 	if (!address) {
 		return res.status(400).json({ error: 'Address is required' });
@@ -12,19 +12,18 @@ export default async function handler(
 
 	try {
 		const response = await fetch(
-			`https://api-3.xverse.app/v1/address/${address}/ordinal-utxo`
+			`https://api-3.xverse.app/v1/address/${address}/ordinal-utxo?limit=${limit}&offset=${offset}`
 		);
 		if (!response.ok) {
 			throw new Error('Failed to fetch data');
 		}
 
 		const data = await response.json();
-		console.log('API Data:', data); // Debugging line
+		console.log('API Data:', data);
 		res.status(200).json(data);
 	} catch (err) {
 		const errorMessage =
 			err instanceof Error ? err.message : 'An unknown error occurred';
-		console.error('Error fetching data:', errorMessage); // Debugging line
 		res.status(500).json({ error: errorMessage });
 	}
 }
