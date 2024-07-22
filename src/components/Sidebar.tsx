@@ -136,33 +136,37 @@ const Sidebar: React.FC<SidebarProps> = ({
 					/>
 				</svg>
 			</button>
-			{loading && <div>Loading...</div>}
-			{error && <div>{error}</div>}
-			{data && renderContent()}
-			{data && (
-				<div>
-					<div className="font-semibold pt-3 mb-6">
-						Inscription {data.number}
+			<div className="overflow-y-auto h-full">
+				{loading && <div>Loading...</div>}
+				{error && <div>{error}</div>}
+				{data && renderContent()}
+				{data && (
+					<div>
+						<div className="font-semibold pt-3 mb-6">
+							Inscription {data.number}
+						</div>
+						<InfoRow label="Inscription ID" value={data.id} />
+						<InfoRow label="Owner Address" value={data.address} />
+						<div className="font-semibold mb-6">Attributes</div>
+						<AttributeRow label="Output Value" value={data.value} />
+						<AttributeRow label="Content Type" value={data.value} />
+						<AttributeRow
+							label="Content Length"
+							value={data.value}
+						/>
+						<AttributeRow label="Location" value={data.value} />
+						<AttributeRow
+							label="Genesis Transaction"
+							value={data.value}
+						/>
 					</div>
-					<InfoRow label="Inscription ID" value={data.id} />
-
-					<InfoRow label="Owner Address" value={data.address} />
-					<div className="font-semibold mb-6">Attributes</div>
-					<AttributeRow label="Output Value" value={data.value} />
-					<AttributeRow label="Content Type" value={data.value} />
-					<AttributeRow label="Content Length" value={data.value} />
-					<AttributeRow label="Location" value={data.value} />
-					<AttributeRow
-						label="Genesis Transaction"
-						value={data.value}
-					/>
-				</div>
-			)}
-			{data && (
-				<div>
-					<pre>{JSON.stringify(data, null, 2)}</pre>
-				</div>
-			)}
+				)}
+				{data && (
+					<div>
+						<pre>{JSON.stringify(data, null, 2)}</pre>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };
