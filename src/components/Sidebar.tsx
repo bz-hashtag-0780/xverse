@@ -60,7 +60,6 @@ const Sidebar: React.FC<SidebarProps> = ({
 		if (contentType.startsWith('text/')) {
 			return (
 				<div>
-					<h2 className="text-xl mb-4">Inscription Details</h2>
 					<iframe
 						src={contentUrl}
 						className="w-full h-full border-none"
@@ -84,7 +83,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 		// Default case: Display the raw content as a text
 		return (
 			<div>
-				<h2 className="text-xl mb-4">Inscription Details</h2>
+				<h2 className="text-xl mb-4">Details</h2>
 				<pre className="whitespace-pre-wrap break-all">
 					{data.content}
 				</pre>
@@ -93,16 +92,29 @@ const Sidebar: React.FC<SidebarProps> = ({
 	};
 
 	return (
-		<div className="fixed top-0 right-0 w-1/3 h-full bg-gray-900 text-white shadow-lg p-4 transform transition-transform duration-300">
-			<button onClick={onClose} className="text-red-500">
-				Close
+		<div className="fixed top-0 right-0 w-full h-full bg-[#1A1A1A] text-white shadow-lg p-4 transform transition-transform duration-300 md:w-1/3">
+			<button onClick={onClose} className="text-red-500 p-6">
+				<svg
+					width="10"
+					height="16"
+					viewBox="0 0 10 16"
+					fill="none"
+					xmlns="http://www.w3.org/2000/svg"
+				>
+					<path
+						d="M8.5 1L1.5 8L8.5 15"
+						stroke="white"
+						strokeWidth="1.75"
+						strokeLinecap="round"
+						strokeLinejoin="round"
+					/>
+				</svg>
 			</button>
 			{loading && <div>Loading...</div>}
 			{error && <div>{error}</div>}
 			{data && renderContent()}
 			{data && (
 				<div>
-					<h2 className="text-xl mb-4">Inscription Details</h2>
 					<pre>{JSON.stringify(data, null, 2)}</pre>
 				</div>
 			)}
