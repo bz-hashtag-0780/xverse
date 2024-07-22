@@ -90,14 +90,14 @@ const Sidebar: React.FC<SidebarProps> = ({
 				<img
 					src={contentUrl}
 					alt="Inscription content"
-					className="w-full h-auto md:object-cover"
+					className="h-auto md:object-cover"
 				/>
 			);
 		}
 
 		if (contentType.startsWith('text/')) {
 			return (
-				<div className="w-full">
+				<div className="w-full md:object-cover">
 					<iframe
 						src={contentUrl}
 						className="w-full border-none"
@@ -105,16 +105,6 @@ const Sidebar: React.FC<SidebarProps> = ({
 						title="Inscription content"
 					/>
 				</div>
-			);
-		}
-
-		if (contentType === '' || contentType === null) {
-			return (
-				<img
-					src={contentUrl}
-					alt="Inscription content"
-					className="w-full h-auto md:object-cover"
-				/>
 			);
 		}
 
