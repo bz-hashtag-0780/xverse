@@ -38,6 +38,30 @@ const Sidebar: React.FC<SidebarProps> = ({
 		fetchInscriptionDetails();
 	}, [address, inscriptionId]);
 
+	const InfoRow: React.FC<{ label: string; value: string | number }> = ({
+		label,
+		value,
+	}) => (
+		<div className="mb-4">
+			<div className="text-[12px] font-medium text-[#BABABA]">
+				{label}
+			</div>
+			<div>{value}</div>
+		</div>
+	);
+
+	const AttributeRow: React.FC<{ label: string; value: string | number }> = ({
+		label,
+		value,
+	}) => (
+		<div className="mb-4">
+			<div className="text-[12px] font-medium text-[#BABABA]">
+				{label}
+			</div>
+			<div className="bg-[#24252C] rounded-[8px] py-2 px-3">{value}</div>
+		</div>
+	);
+
 	const renderContent = () => {
 		if (!data) {
 			return null;
@@ -93,7 +117,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
 	return (
 		<div className="fixed top-0 right-0 w-full h-full bg-[#1A1A1A] text-white shadow-lg p-4 transform transition-transform duration-300 md:w-1/3">
-			<button onClick={onClose} className="text-red-500 p-6">
+			<button onClick={onClose} className="p-6">
 				<svg
 					width="10"
 					height="16"
@@ -113,6 +137,18 @@ const Sidebar: React.FC<SidebarProps> = ({
 			{loading && <div>Loading...</div>}
 			{error && <div>{error}</div>}
 			{data && renderContent()}
+			{data && (
+				<div>
+					<div className="font-semibold pt-3 mb-6">
+						Inscription {data.number}
+					</div>
+					<InfoRow label="Inscription ID" value={data.id} />
+
+					<InfoRow label="Owner Address" value={data.address} />
+					<div className="font-semibold mb-6">Attributes</div>
+					<AttributeRow label="Output Value" value={data.value} />
+				</div>
+			)}
 			{data && (
 				<div>
 					<pre>{JSON.stringify(data, null, 2)}</pre>
