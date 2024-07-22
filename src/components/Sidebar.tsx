@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
 
 interface SidebarProps {
@@ -130,23 +131,27 @@ const Sidebar: React.FC<SidebarProps> = ({
 
 	return (
 		<div className="fixed top-0 right-0 w-full h-full bg-[#1A1A1A] text-white shadow-lg p-4 transform transition-transform duration-300 md:w-1/3">
-			<button onClick={onClose} className="p-6">
-				<svg
-					width="10"
-					height="16"
-					viewBox="0 0 10 16"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<path
-						d="M8.5 1L1.5 8L8.5 15"
-						stroke="white"
-						strokeWidth="1.75"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-					/>
-				</svg>
-			</button>
+			<div className="flex items-center justify-between p-6">
+				<button onClick={onClose} className="mr-4">
+					<svg
+						width="10"
+						height="16"
+						viewBox="0 0 10 16"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M8.5 1L1.5 8L8.5 15"
+							stroke="white"
+							strokeWidth="1.75"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+						/>
+					</svg>
+				</button>
+				<div className="flex-grow text-center font-medium">Details</div>
+				<div className="w-10"></div>
+			</div>
 			<div className="overflow-y-auto h-full">
 				{loading && <div>Loading...</div>}
 				{error && <div>{error}</div>}
