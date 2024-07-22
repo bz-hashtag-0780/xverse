@@ -66,17 +66,17 @@ const Lookup: React.FC = () => {
 		<div className="bg-[#1A1A1A] text-white min-h-screen flex flex-col items-center justify-center">
 			<div className="text-2xl mb-6">Ordinal Inscription Lookup</div>
 			<div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-				<p className="mb-2">Owner Bitcoin Address:</p>
+				<p className="mb-2 font-medium">Owner Bitcoin Address:</p>
 				<div className="mb-4">
 					<input
-						className="w-full border border-gray-600 p-2 rounded bg-gray-700 text-white focus:outline-none"
+						className="w-full p-2 rounded bg-[#24252C] text-white focus:outline-none"
 						value={inputValue}
 						onChange={handleInputChange}
 					/>
 				</div>
 				<button
 					onClick={() => handleLookup(0)}
-					className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
+					className="w-full bg-[#465AE9] text-white py-2 px-4 rounded-[10px] hover:bg-blue-600 transition duration-200"
 					disabled={loading}
 				>
 					{loading ? 'Looking up...' : 'Look up'}
@@ -84,14 +84,14 @@ const Lookup: React.FC = () => {
 				{error && <p className="text-red-500 mt-4">{error}</p>}
 			</div>
 			{results.length > 0 && (
-				<div className="mt-6 bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-					<div className="text-xl mb-4">Results</div>
+				<div className="p-6 w-full max-w-md">
+					<div className="text-xl mb-6">Results</div>
 					<div className="space-y-2">
 						{results.map((utxo) =>
 							utxo.inscriptions.map((inscription: any) => (
 								<div
 									key={inscription.id}
-									className="hover:bg-gray-700 p-2 cursor-pointer flex justify-between items-center"
+									className="hover:bg-gray-700 pt-2 pb-2 cursor-pointer flex justify-between items-center"
 									onClick={() =>
 										handleInscriptionClick(
 											inputValue,
@@ -126,7 +126,7 @@ const Lookup: React.FC = () => {
 						<button
 							onClick={() => handlePageClick(offset - limit)}
 							disabled={offset === 0}
-							className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
+							className="bg-[#465AE9] text-white py-2 px-4 rounded hover:bg-[#3A4EC9] transition duration-200"
 						>
 							Previous
 						</button>
@@ -136,7 +136,7 @@ const Lookup: React.FC = () => {
 						<button
 							onClick={() => handlePageClick(offset + limit)}
 							disabled={offset + limit >= total}
-							className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
+							className="bg-[#465AE9] text-white py-2 px-4 rounded hover:bg-[#3A4EC9] transition duration-200"
 						>
 							Next
 						</button>
