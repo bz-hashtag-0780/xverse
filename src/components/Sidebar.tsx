@@ -87,20 +87,22 @@ const Sidebar: React.FC<SidebarProps> = ({
 
 		if (contentType.startsWith('image/')) {
 			return (
-				<img
-					src={contentUrl}
-					alt="Inscription content"
-					className="h-auto md:object-cover"
-				/>
+				<div className="flex justify-center w-full">
+					<img
+						src={contentUrl}
+						alt="Inscription content"
+						className="max-w-full h-auto md:w-auto md:object-cover"
+					/>
+				</div>
 			);
 		}
 
 		if (contentType.startsWith('text/')) {
 			return (
-				<div className="w-full md:object-cover">
+				<div className="w-full">
 					<iframe
 						src={contentUrl}
-						className="w-full border-none"
+						className="w-full h-full border-none"
 						sandbox="allow-scripts allow-same-origin"
 						title="Inscription content"
 					/>
@@ -108,7 +110,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 			);
 		}
 
-		// Default case: Display the raw content as a text
+		// Default case
 		return (
 			<div>
 				<pre className="whitespace-pre-wrap break-all">
