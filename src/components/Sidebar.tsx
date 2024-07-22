@@ -46,7 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 			<div className="text-[12px] font-medium text-[#BABABA]">
 				{label}
 			</div>
-			<div>{value}</div>
+			<div className="break-words whitespace-pre-wrap">{value}</div>
 		</div>
 	);
 
@@ -58,7 +58,9 @@ const Sidebar: React.FC<SidebarProps> = ({
 			<div className="text-[12px] font-medium text-[#BABABA]">
 				{label}
 			</div>
-			<div className="bg-[#24252C] rounded-[8px] py-2 px-3">{value}</div>
+			<div className="bg-[#24252C] rounded-[8px] py-2 px-3 break-words whitespace-pre-wrap">
+				{value}
+			</div>
 		</div>
 	);
 
@@ -147,6 +149,13 @@ const Sidebar: React.FC<SidebarProps> = ({
 					<InfoRow label="Owner Address" value={data.address} />
 					<div className="font-semibold mb-6">Attributes</div>
 					<AttributeRow label="Output Value" value={data.value} />
+					<AttributeRow label="Content Type" value={data.value} />
+					<AttributeRow label="Content Length" value={data.value} />
+					<AttributeRow label="Location" value={data.value} />
+					<AttributeRow
+						label="Genesis Transaction"
+						value={data.value}
+					/>
 				</div>
 			)}
 			{data && (
