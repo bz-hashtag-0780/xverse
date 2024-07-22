@@ -63,7 +63,7 @@ const Lookup: React.FC = () => {
 	const currentPage = Math.floor(offset / limit) + 1;
 
 	return (
-		<div className="bg-black text-white min-h-screen flex flex-col items-center justify-center">
+		<div className="bg-[#1A1A1A] text-white min-h-screen flex flex-col items-center justify-center">
 			<div className="text-2xl mb-6">Ordinal Inscription Lookup</div>
 			<div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
 				<p className="mb-2">Owner Bitcoin Address:</p>
@@ -91,7 +91,7 @@ const Lookup: React.FC = () => {
 							utxo.inscriptions.map((inscription: any) => (
 								<div
 									key={inscription.id}
-									className="bg-gray-700 p-2 rounded cursor-pointer"
+									className="hover:bg-gray-700 p-2 cursor-pointer flex justify-between items-center"
 									onClick={() =>
 										handleInscriptionClick(
 											inputValue,
@@ -99,7 +99,25 @@ const Lookup: React.FC = () => {
 										)
 									}
 								>
-									Inscription {inscription.id}
+									<span>
+										Inscription{' '}
+										{inscription.id.substring(0, 8)}
+									</span>
+									<svg
+										width="9"
+										height="16"
+										viewBox="0 0 9 16"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M1 1L8 8L1 15"
+											stroke="white"
+											strokeWidth="1.75"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										/>
+									</svg>
 								</div>
 							))
 						)}
