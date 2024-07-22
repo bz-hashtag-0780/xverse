@@ -38,6 +38,17 @@ const Sidebar: React.FC<SidebarProps> = ({
 		fetchInscriptionDetails();
 	}, [address, inscriptionId]);
 
+	const truncate = (text: string) => {
+		const parts = text.split(':');
+		const prefix = parts[0];
+		const suffix = parts.slice(1).join(':');
+		const truncatedPrefix = `${prefix.substring(
+			0,
+			12
+		)}...${prefix.substring(prefix.length - 12)}`;
+		return suffix ? `${truncatedPrefix}:${suffix}` : truncatedPrefix;
+	};
+
 	const InfoRow: React.FC<{ label: string; value: string | number }> = ({
 		label,
 		value,
@@ -157,16 +168,14 @@ const Sidebar: React.FC<SidebarProps> = ({
 							label="Content Length"
 							value={data.content_length + ' bytes'}
 						/>
-						<AttributeRow label="Location" value={data.location} />
+						<AttributeRow
+							label="Location"
+							value={truncate(data.location)}
+						/>
 						<AttributeRow
 							label="Genesis Transaction"
-							value={data.value}
+							value={truncate(data.genesis_tx_id)}
 						/>
-					</div>
-				)}
-				{data && (
-					<div>
-						<pre>{JSON.stringify(data, null, 2)}</pre>
 					</div>
 				)}
 			</div>
