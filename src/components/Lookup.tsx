@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import Sidebar from './Sidebar';
 
 const Lookup: React.FC = () => {
 	const [inputValue, setInputValue] = useState('');
 	const [results, setResults] = useState<any[]>([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
+	const [selectedInscription, setSelectedInscription] = useState<{
+		address: string;
+		inscriptionId: string;
+	} | null>(null);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value);
@@ -38,6 +43,14 @@ const Lookup: React.FC = () => {
 		}
 	};
 
+	const handleInscriptionClick = (address: string, inscriptionId: string) => {
+		setSelectedInscription({ address, inscriptionId });
+	};
+
+	const handleCloseSidebar = () => {
+		setSelectedInscription(null);
+	};
+
 	return (
 		<div className="bg-black text-white min-h-screen flex flex-col items-center justify-center">
 			<div className="text-2xl mb-6">Ordinal Inscription Lookup</div>
@@ -63,16 +76,31 @@ const Lookup: React.FC = () => {
 				<div className="mt-6 bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
 					<div className="text-xl mb-4">Results</div>
 					<div className="space-y-2">
-						{results.map((utxo) => (
-							<div
-								key={`${utxo.txid}-${utxo.vout}`}
-								className="bg-gray-700 p-2 rounded"
-							>
-								Inscription {utxo.txid}-{utxo.vout}
-							</div>
-						))}
+						{results.map((utxo) =>
+							utxo.inscriptions.map((inscription: any) => (
+								<div
+									key={inscription.id}
+									className="bg-gray-700 p-2 rounded cursor-pointer"
+									onClick={() =>
+										handleInscriptionClick(
+											inputValue,
+											inscription.id
+										)
+									}
+								>
+									Inscription {inscription.id}
+								</div>
+							))
+						)}
 					</div>
 				</div>
+			)}
+			{selectedInscription && (
+				<Sidebar
+					address={selectedInscription.address}
+					inscriptionId={selectedInscription.inscriptionId}
+					onClose={handleCloseSidebar}
+				/>
 			)}
 		</div>
 	);
