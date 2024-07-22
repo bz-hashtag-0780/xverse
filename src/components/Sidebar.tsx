@@ -149,12 +149,15 @@ const Sidebar: React.FC<SidebarProps> = ({
 						<InfoRow label="Owner Address" value={data.address} />
 						<div className="font-semibold mb-6">Attributes</div>
 						<AttributeRow label="Output Value" value={data.value} />
-						<AttributeRow label="Content Type" value={data.value} />
+						<AttributeRow
+							label="Content Type"
+							value={data.content_type}
+						/>
 						<AttributeRow
 							label="Content Length"
-							value={data.value}
+							value={data.content_length + ' bytes'}
 						/>
-						<AttributeRow label="Location" value={data.value} />
+						<AttributeRow label="Location" value={data.location} />
 						<AttributeRow
 							label="Genesis Transaction"
 							value={data.value}
